@@ -1,0 +1,59 @@
+﻿@{
+    ViewData["Title"] = "Contact"; // Setează titlul paginii
+}
+
+<div class="text-center mb-5">
+    <h1 class="display-4 text-primary">Contactează-ne</h1>
+    <p class="lead text-secondary">Suntem aici să te ajutăm. Trimite-ne un mesaj sau găsește-ne pe rețelele sociale.</p>
+</div>
+
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card shadow-sm border-0">
+                <div class="card-body p-5">
+                    <h2 class="card-title text-info mb-4">Formular de Contact</h2>
+                    <form>
+                        <div class="mb-3">
+                            <label for="name" class="form-label text-muted">Numele dumneavoastră:</label>
+                            <input type="text" class="form-control" id="name" placeholder="Introduceți numele" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="email" class="form-label text-muted">Adresa de email:</label>
+                            <input type="email" class="form-control" id="email" placeholder="Introduceți adresa de email" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="subject" class="form-label text-muted">Subiect:</label>
+                            <input type="text" class="form-control" id="subject" placeholder="Subiectul mesajului" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="message" class="form-label text-muted">Mesajul dumneavoastră:</label>
+                            <textarea class="form-control" id="message" rows="5" placeholder="Scrieți mesajul aici..." required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-lg mt-3">Trimite Mesajul</button>
+                    </form>
+
+                    <hr class="my-5" />
+
+                    <h2 class="card-title text-info mb-4">Alte modalități de contact</h2>
+                    <p class="card-text text-muted">
+                        <i class="bi bi-envelope-fill text-primary me-2"></i> Email: <a href="mailto:contact@hygeeamind.com">contact@hygeeamind.com</a>
+                    </p>
+                    <p class="card-text text-muted">
+                        <i class="bi bi-telephone-fill text-primary me-2"></i> Telefon: +40 7XY ZZZ ZZZ
+                    </p>
+                    <p class="card-text text-muted">
+                        <i class="bi bi-geo-alt-fill text-primary me-2"></i> Adresă: Strada Exemplu, Nr. 123, Oraș, Județ, România
+                    </p>
+
+                    <h3 class="card-title text-info mt-4 mb-3">Urmărește-ne pe rețelele sociale!</h3>
+                    <div class="d-flex justify-content-center justify-content-md-start">
+                        <a href="#" class="btn btn-outline-primary btn-lg me-3"><i class="bi bi-facebook"></i> Facebook</a>
+                        <a href="#" class="btn btn-outline-info btn-lg me-3"><i class="bi bi-twitter"></i> Twitter</a>
+                        <a href="#" class="btn btn-outline-danger btn-lg"><i class="bi bi-instagram"></i> Instagram</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

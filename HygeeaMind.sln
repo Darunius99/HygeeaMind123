@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.13.35825.156 d17.13
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HygeeaMind", "HygeeaMind.csproj", "{D36675A7-636F-483E-BC5B-295F8D18681C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D36675A7-636F-483E-BC5B-295F8D18681C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D36675A7-636F-483E-BC5B-295F8D18681C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D36675A7-636F-483E-BC5B-295F8D18681C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D36675A7-636F-483E-BC5B-295F8D18681C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A887B643-0AD9-46A7-8E07-5BFE7E091452}
+	EndGlobalSection
+EndGlobal

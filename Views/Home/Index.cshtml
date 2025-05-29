@@ -1,0 +1,108 @@
+﻿@model HygeeaMind.ViewModels.HomeViewModel // Specifică tipul de model așteptat de acest view
+
+@{
+    ViewData["Title"] = "Acasă"; // Setează titlul paginii
+}
+
+<div class="text-center mb-5">
+    <h1 class="display-4 text-primary">Bun venit la HygeeaMind!</h1>
+    <p class="lead text-secondary">Un pas spre o viață liberă de dependențe.</p>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <h2 class="text-info mb-4">Articole despre vindecarea de dependențe</h2>
+
+        <form asp-controller="Home" asp-action="Index" method="get" class="mb-4">
+            <div class="input-group">
+                <input type="text" name="SearchString" class="form-control" placeholder="Căută articole după titlu sau conținut..." value="@Model.SearchString" />
+                <button type="submit" class="btn btn-outline-primary">Căută</button>
+            </div>
+        </form>
+
+        @if (Model.Articles != null && Model.Articles.Any())
+        {
+            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+                @foreach (var article in Model.Articles)
+                {
+                    <div class="col">
+                        <div class="card h-100 shadow-sm border-0">
+                            @if (!string.IsNullOrEmpty(article.ImageUrl))
+                            {
+                                <img src="@article.ImageUrl" class="card-img-top" alt="Imagine Articol" style="height: 200px; object-fit: cover;">
+                            }
+                            <div class="card-body">
+                                <h5 class="card-title text-primary">@article.Title</h5>
+                                <p class="card-text text-muted">@((article.Content.Length > 150) ? article.Content.Substring(0, 150) + "..." : article.Content)</p>
+                                <a asp-controller="Articles" asp-action="Details" asp-route-id="@article.Id" class="btn btn-sm btn-outline-info mt-2">Citește mai mult</a>
+                            </div>
+                            <div class="card-footer bg-light border-0">
+                                <small class="text-muted">Publicat la: @article.PublicationDate.ToShortDateString()</small>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+        else
+        {
+            <p class="text-muted">Nu există articole disponibile momentan.</p>
+        }
+    </div>
+</div>
+
+<hr class="my-5" />
+<div class="row mt-5">
+    <div class="col-md-12">
+        <h2 class="text-info mb-4">Specialiști Recomandați</h2>
+        @if (Model.Specialists != null && Model.Specialists.Any())
+        {
+            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+                @foreach (var specialist in Model.Specialists)
+                {
+                    <div class="col">
+                        <div class="card h-100 shadow-sm border-0">
+                            @if (!string.IsNullOrEmpty(specialist.ProfileImageUrl))
+                            {
+                                <img src="@specialist.ProfileImageUrl" class="card-img-top rounded-circle mt-3 mx-auto d-block" alt="Imagine Specialist" style="width: 150px; height: 150px; object-fit: cover;">
+                            }
+                            <div class="card-body text-center">
+                                <h5 class="card-title text-primary">@specialist.Name</h5>
+                                <p class="card-text text-muted">@specialist.Specialty</p>
+                                <p class="card-text"><small class="text-muted">Experiență: @specialist.ExperienceYears ani</small></p>
+                                <p class="card-text">@((specialist.Description.Length > 100) ? specialist.Description.Substring(0, 100) + "..." : specialist.Description)</p>
+                                <a asp-controller="Specialists" asp-action="Details" asp-route-id="@specialist.Id" class="btn btn-sm btn-outline-success mt-2">Vezi Profil</a>
+                            </div>
+                            <div class="card-footer bg-light border-0">
+                                <small class="text-muted">Email: @specialist.Email</small>
+                                <br />
+                                <small class="text-muted">Telefon: @specialist.PhoneNumber</small>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+        else
+        {
+            <p class="text-muted">Nu există specialiști disponibili momentan.</p>
+        }
+    </div>
+</div>
+
+<hr class="my-5" />
+
+<div class="row mt-5">
+    <div class="col-md-12 text-center">
+        <h2 class="text-info mb-4">Resurse PDF pentru vindecare</h2>
+        <p class="lead text-secondary">Accesează materiale utile pentru a-ți sprijini parcursul spre recuperare.</p>
+        <div class="d-grid gap-2 col-6 mx-auto">
+            <a href="~/docs/Ghid_Recuperare.pdf" download class="btn btn-primary btn-lg mb-3">
+                <i class="bi bi-file-earmark-pdf"></i> Descarcă Ghid de Recuperare
+            </a>
+            <a href="~/docs/Strategii_Anti-Dependenta.pdf" download class="btn btn-outline-primary btn-lg">
+                <i class="bi bi-file-earmark-pdf"></i> Descarcă Strategii Anti-Dependență
+            </a>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,191 @@
+﻿/* Stiluri de bază pentru HTML și body */
+html {
+    font-size: 14px;
+}
+
+@media (min-width: 768px) {
+    html {
+        font-size: 16px;
+    }
+}
+
+/* Stiluri pentru focus (când un element este selectat cu tastatura) */
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #89CFF0; /* Baby blue pentru focus */
+}
+
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    margin-bottom: 60px; /* Spațiu pentru footer */
+    background-color: #F5F5DC; /* Bej deschis pentru fundalul principal */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Un font modern și lizibil */
+    color: #333; /* Culoare text implicită */
+}
+
+/* Navbar (bara de navigare) */
+.navbar {
+    background-color: #89CFF0 !important; /* Baby blue pentru navbar */
+    box-shadow: 0 2px 4px rgba(0,0,0,.1); /* O umbră subtilă */
+}
+
+.navbar-brand, .nav-link {
+    color: #fff !important; /* Text alb pentru link-uri în navbar */
+    font-weight: bold; /* Text îngroșat */
+}
+
+    .navbar-brand:hover, .nav-link:hover {
+        color: #e0f2f7 !important; /* O nuanță mai deschisă la hover */
+    }
+
+/* Butoane - personalizare culori */
+.btn-primary {
+    background-color: #89CFF0; /* Baby blue */
+    border-color: #89CFF0;
+}
+
+    .btn-primary:hover {
+        background-color: #6fb0e0; /* O nuanță mai închisă de baby blue la hover */
+        border-color: #6fb0e0;
+    }
+
+.btn-outline-primary {
+    color: #89CFF0;
+    border-color: #89CFF0;
+}
+
+    .btn-outline-primary:hover {
+        background-color: #89CFF0;
+        color: #fff; /* Text alb la hover */
+    }
+
+.btn-info { /* Folosit pentru butoanele "Citește mai mult" la articole */
+    background-color: #98FB98; /* Verde crud */
+    border-color: #98FB98;
+    color: #333; /* Text închis pentru vizibilitate pe fundal deschis */
+}
+
+    .btn-info:hover {
+        background-color: #7bd47b; /* O nuanță mai închisă de verde crud */
+        border-color: #7bd47b;
+    }
+
+.btn-outline-info {
+    color: #98FB98;
+    border-color: #98FB98;
+}
+
+    .btn-outline-info:hover {
+        background-color: #98FB98;
+        color: #333;
+    }
+
+.btn-success { /* Folosit pentru butoanele "Vezi Profil" la specialiști */
+    background-color: #89CFF0; /* Folosim tot baby blue pentru o coerență vizuală */
+    border-color: #89CFF0;
+    color: #fff;
+}
+
+    .btn-success:hover {
+        background-color: #6fb0e0;
+        border-color: #6fb0e0;
+    }
+
+.btn-outline-success {
+    color: #89CFF0;
+    border-color: #89CFF0;
+}
+
+    .btn-outline-success:hover {
+        background-color: #89CFF0;
+        color: #fff;
+    }
+
+.btn-danger { /* Roșu standard pentru operații de ștergere */
+    background-color: #dc3545;
+    border-color: #dc3545;
+}
+
+/* Carduri - stilizare pentru articole și specialiști */
+.card {
+    border-radius: 0.75rem; /* Colțuri rotunjite */
+    overflow: hidden; /* Asigură că imaginea se încadrează în colțurile rotunjite */
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out; /* Tranziție la hover */
+}
+
+    .card:hover {
+        transform: translateY(-5px); /* Efect de ridicare la hover */
+        box-shadow: 0 8px 16px rgba(0,0,0,.15); /* Umbră mai pronunțată la hover */
+    }
+
+.card-title {
+    color: #89CFF0; /* Baby blue pentru titluri de card */
+}
+
+/* Culori text personalizate */
+.text-primary {
+    color: #89CFF0 !important; /* Baby blue */
+}
+
+.text-secondary {
+    color: #6c757d !important; /* Gri închis pentru text secundar */
+}
+
+.text-info {
+    color: #98FB98 !important; /* Verde crud */
+}
+
+.text-muted {
+    color: #7a7a7a !important; /* O nuanță mai deschisă de gri pentru text mai mic/secundar */
+}
+
+/* Footer */
+footer {
+    background-color: #89CFF0; /* Baby blue pentru footer */
+    color: #fff; /* Text alb */
+    padding: 20px 0;
+    text-align: center;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
+
+    footer a {
+        color: #fff;
+        text-decoration: none;
+    }
+
+        footer a:hover {
+            color: #e0f2f7;
+        }
+
+/* Controale de formular */
+.form-control {
+    border-color: #d1d1d1;
+    border-radius: 0.5rem; /* Colțuri ușor rotunjite */
+}
+
+    .form-control:focus {
+        border-color: #89CFF0; /* Border baby blue la focus */
+        box-shadow: 0 0 0 0.25rem rgba(137, 207, 240, 0.25); /* Umbră subtilă la focus */
+    }
+
+/* Stiluri specifice pentru imagini pe pagina home (în carduri) */
+.card-img-top {
+    border-top-left-radius: 0.75rem;
+    border-top-right-radius: 0.75rem;
+}
+
+/* Stilizare imagine de profil a specialiștilor */
+.rounded-circle {
+    border: 3px solid #89CFF0; /* Bordură baby blue pentru imaginile de profil */
+}
+
+/* Iconițe Bootstrap */
+.bi {
+    vertical-align: -0.125em; /* Aliniere verticală pentru iconițe */
+    fill: currentColor; /* Asigură că iconița preia culoarea textului înconjurător */
+}
