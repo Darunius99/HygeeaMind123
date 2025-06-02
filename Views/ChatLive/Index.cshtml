@@ -1,0 +1,125 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+
+@{
+    ViewData["Title"] = "Chat Live"; // Sets the title for this page
+}
+
+<div class="container-fluid py-4">
+    <div class="row">
+        <div class="col-12 text-center mb-4">
+            <h1 class="display-4">Chat Live HygeeaMind</h1>
+            <p class="lead">Conectează-te cu specialiștii noștri sau cu alți utilizatori.</p>
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-lg-8 col-md-10">
+            <div class="card shadow-sm">
+                <div class="card-header bg-info text-white">
+                    <h5 class="mb-0">Fereastră Chat</h5>
+                </div>
+                <div class="card-body chat-body" style="height: 400px; overflow-y: scroll; background-color: #f8f9fa;">
+                    <ul id="messagesList" class="list-unstyled">
+                    </ul>
+                </div>
+                <div class="card-footer bg-light">
+                    <div class="input-group">
+                        <input type="text"
+                               id="userInput"
+                               class="form-control"
+                               placeholder="Numele tău..."
+                               aria-label="Nume utilizator"
+                               value="@(SignInManager.IsSignedIn(User) ? User.Identity.Name : "")"
+                        @(SignInManager.IsSignedIn(User) ? "readonly" : "") /> <input type="text" id="messageInput" class="form-control" placeholder="Scrie mesajul tău..." aria-label="Mesaj" />
+                        <button id="sendButton" class="btn btn-primary">Trimite</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/lib/microsoft/signalr/dist/browser/signalr.js"></script>
+
+    <script>
+        "use strict";
+
+        // IMPORTANT: The URL "/chatHub" must match what you mapped in Program.cs (app.MapHub<ChatHub>("/chatHub");)
+        var connection = new signalR.HubConnectionBuilder().withUrl("/chatHub").build();
+
+        // Disable send button until connection is established
+        document.getElementById("sendButton").disabled = true;
+
+        // "ReceiveMessage" must match the method name called from ChatHub.cs (Clients.All.SendAsync("ReceiveMessage", ...))
+        connection.on("ReceiveMessage", function (user, message) {
+            var li = document.createElement("li");
+            // Using template literals for cleaner HTML injection
+            li.innerHTML = `<small class="text-muted"><b>${user}</b> spune:</small><br />${message}`;
+            document.getElementById("messagesList").appendChild(li); // Append to the messagesList UL
+
+            var chatBody = document.querySelector('.card-body'); // Select the scrolling div, not the UL
+            // Auto-scroll to the bottom only if the user is already near the bottom
+            if (chatBody.scrollHeight - chatBody.scrollTop <= chatBody.clientHeight + 50) { // Add a small buffer
+                chatBody.scrollTop = chatBody.scrollHeight;
+            }
+        });
+
+        // Start the SignalR connection
+        connection.start().then(function () {
+            document.getElementById("sendButton").disabled = false; // Enable send button on success
+            // Optional: Set focus to message input once connected
+            document.getElementById("messageInput").focus();
+        }).catch(function (err) {
+            console.error("Eroare la conectarea SignalR: " + err.toString()); // Log any connection errors
+            // Optional: Display a user-friendly error message on the page
+            var errorLi = document.createElement("li");
+            errorLi.classList.add("text-danger", "list-group-item", "border-0");
+            errorLi.textContent = "Eroare la conectarea la chat. Vă rugăm să reîncărcați pagina.";
+            document.getElementById("messagesList").appendChild(errorLi);
+        });
+
+        // Event listener for the Send button
+        document.getElementById("sendButton").addEventListener("click", function (event) {
+            var user = document.getElementById("userInput").value;
+            var message = document.getElementById("messageInput").value;
+
+            user = user.trim(); // Remove leading/trailing whitespace
+            message = message.trim();
+
+            if (!user) {
+                alert("Introduceți un nume de utilizator, vă rog.");
+                document.getElementById("userInput").focus(); // Focus on user input
+                event.preventDefault();
+                return;
+            }
+            if (!message) {
+                alert("Introduceți un mesaj, vă rog.");
+                document.getElementById("messageInput").focus(); // Focus on message input
+                event.preventDefault();
+                return;
+            }
+
+            // "SendMessage" must match the method name in ChatHub.cs (public async Task SendMessage(...))
+            connection.invoke("SendMessage", user, message).catch(function (err) {
+                console.error("Eroare la trimiterea mesajului: " + err.toString()); // Log any send errors
+                alert("Eroare la trimiterea mesajului: " + err.message); // Inform user
+            });
+            document.getElementById("messageInput").value = ""; // Clear message input after sending
+            event.preventDefault(); // Prevent default form submission
+        });
+
+        // Event listener for Enter key in message input
+        document.getElementById("messageInput").addEventListener("keypress", function (event) {
+            if (event.key === "Enter") {
+                event.preventDefault(); // Prevent default form submission
+                document.getElementById("sendButton").click(); // Simulate click on send button
+            }
+        });
+
+        // Optional: Ensure user input is readonly if signed in
+        if (document.getElementById("userInput").value !== "") {
+            document.getElementById("userInput").readOnly = true;
+        }
+    </script>
+}
