@@ -7,17 +7,10 @@ using System.Diagnostics; // Pentru ErrorViewModel
 
 namespace HygeeaMind.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController(ILogger<HomeController> logger, ApplicationDbContext context) : Controller
     {
-        private readonly ILogger<HomeController> _logger;
-        private readonly ApplicationDbContext _context; // Instanța contextului bazei de date
-
-        // Constructorul injectează ILogger și ApplicationDbContext
-        public HomeController(ILogger<HomeController> logger, ApplicationDbContext context)
-        {
-            _logger = logger;
-            _context = context;
-        }
+        private readonly ILogger<HomeController> _logger = logger;
+        private readonly ApplicationDbContext _context = context; // Instanța contextului bazei de date
 
         // Acțiunea Index pentru pagina principală
         public async Task<IActionResult> Index(string searchString)

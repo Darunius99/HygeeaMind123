@@ -24,7 +24,51 @@ body {
     background-color: #F5F5DC; /* Bej deschis pentru fundalul principal */
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Un font modern și lizibil */
     color: #333; /* Culoare text implicită */
+    line-height: 1.6; /* Spațiere mai bună între rânduri pentru lizibilitate */
 }
+
+/* Stiluri generale pentru link-uri */
+a {
+    color: #89CFF0; /* Baby blue pentru link-uri generale */
+    text-decoration: none; /* Fără subliniere implicită */
+}
+
+    a:hover {
+        color: #6fb0e0; /* Nuanță mai închisă de baby blue la hover */
+        text-decoration: underline; /* Subliniere la hover */
+    }
+
+/* Stiluri pentru titluri (headings) */
+h1, h2, h3, h4, h5, h6 {
+    color: #333; /* Culoare închisă pentru titluri */
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+h1 {
+    font-size: 2.5rem;
+}
+
+h2 {
+    font-size: 2rem;
+}
+
+h3 {
+    font-size: 1.75rem;
+}
+
+h4 {
+    font-size: 1.5rem;
+}
+
+h5 {
+    font-size: 1.25rem;
+}
+
+h6 {
+    font-size: 1rem;
+}
+
 
 /* Navbar (bara de navigare) */
 .navbar {
@@ -45,6 +89,7 @@ body {
 .btn-primary {
     background-color: #89CFF0; /* Baby blue */
     border-color: #89CFF0;
+    color: #fff; /* Asigură text alb */
 }
 
     .btn-primary:hover {
@@ -107,13 +152,21 @@ body {
 .btn-danger { /* Roșu standard pentru operații de ștergere */
     background-color: #dc3545;
     border-color: #dc3545;
+    color: #fff; /* Asigură text alb */
 }
+
+    .btn-danger:hover {
+        background-color: #c82333;
+        border-color: #bd2130;
+    }
 
 /* Carduri - stilizare pentru articole și specialiști */
 .card {
     border-radius: 0.75rem; /* Colțuri rotunjite */
     overflow: hidden; /* Asigură că imaginea se încadrează în colțurile rotunjite */
     transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out; /* Tranziție la hover */
+    background-color: #fff; /* Fundal alb pentru carduri */
+    border: 1px solid rgba(0,0,0,.125); /* Bordură subtilă */
 }
 
     .card:hover {
@@ -173,10 +226,30 @@ footer {
         box-shadow: 0 0 0 0.25rem rgba(137, 207, 240, 0.25); /* Umbră subtilă la focus */
     }
 
+/* Mesaje de validare formular */
+.validation-summary-valid, .validation-summary-errors {
+    margin-top: 1rem;
+    padding: 0.75rem;
+    border-radius: 0.25rem;
+}
+
+.validation-summary-errors {
+    color: #721c24;
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+}
+
+.text-danger {
+    color: #dc3545 !important; /* Roșu pentru erorile de validare */
+}
+
 /* Stiluri specifice pentru imagini pe pagina home (în carduri) */
 .card-img-top {
     border-top-left-radius: 0.75rem;
     border-top-right-radius: 0.75rem;
+    width: 100%; /* Asigură că imaginea ocupă toată lățimea containerului */
+    height: 200px; /* Înălțime fixă pentru consistență */
+    object-fit: cover; /* Asigură că imaginea se potrivește fără a se deforma */
 }
 
 /* Stilizare imagine de profil a specialiștilor */
@@ -188,4 +261,35 @@ footer {
 .bi {
     vertical-align: -0.125em; /* Aliniere verticală pentru iconițe */
     fill: currentColor; /* Asigură că iconița preia culoarea textului înconjurător */
+}
+
+/* Stiluri pentru tabele */
+.table {
+    width: 100%;
+    margin-bottom: 1rem;
+    color: #333;
+    border-collapse: collapse; /* Colapsează bordurile celulelor */
+}
+
+    .table th,
+    .table td {
+        padding: 0.75rem;
+        vertical-align: top;
+        border-top: 1px solid #dee2e6; /* Bordură subtilă între rânduri */
+    }
+
+    .table thead th {
+        vertical-align: bottom;
+        border-bottom: 2px solid #dee2e6;
+        background-color: #e9ecef; /* Fundal ușor gri pentru antet */
+        color: #333;
+    }
+
+    .table tbody tr:nth-of-type(odd) {
+        background-color: rgba(0,0,0,.05); /* Rânduri impare cu un fundal ușor diferit */
+    }
+
+.table-hover tbody tr:hover {
+    color: #333;
+    background-color: rgba(0,0,0,.075); /* Efect la hover pe rânduri */
 }

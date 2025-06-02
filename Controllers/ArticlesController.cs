@@ -7,25 +7,23 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using HygeeaMind.Data;
 using HygeeaMind.Models;
+using Microsoft.AspNetCore.Authorization; // Adaugă acest using pentru atributul [Authorize]
 
 namespace HygeeaMind.Controllers
 {
-    public class ArticlesController : Controller
+    public class ArticlesController(ApplicationDbContext context) : Controller
     {
-        private readonly ApplicationDbContext _context;
-
-        public ArticlesController(ApplicationDbContext context)
-        {
-            _context = context;
-        }
+        private readonly ApplicationDbContext _context = context;
 
         // GET: Articles
+        // Această acțiune rămâne publică (oricine poate vedea lista de articole)
         public async Task<IActionResult> Index()
         {
             return View(await _context.Articles.ToListAsync());
         }
 
         // GET: Articles/Details/5
+        // Această acțiune rămâne publică (oricine poate vedea detaliile unui articol)
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -44,16 +42,16 @@ namespace HygeeaMind.Controllers
         }
 
         // GET: Articles/Create
+        [Authorize(Roles = "Admin")] // Doar utilizatorii cu rolul "Admin" pot accesa această acțiune
         public IActionResult Create()
         {
             return View();
         }
 
         // POST: Articles/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")] // Doar utilizatorii cu rolul "Admin" pot trimite acest formular
         public async Task<IActionResult> Create([Bind("Id,Title,Content,ImageUrl,PublicationDate")] Article article)
         {
             if (ModelState.IsValid)
@@ -66,6 +64,7 @@ namespace HygeeaMind.Controllers
         }
 
         // GET: Articles/Edit/5
+        [Authorize(Roles = "Admin")] // Doar utilizatorii cu rolul "Admin" pot accesa această acțiune
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -82,10 +81,9 @@ namespace HygeeaMind.Controllers
         }
 
         // POST: Articles/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")] // Doar utilizatorii cu rolul "Admin" pot trimite acest formular
         public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Content,ImageUrl,PublicationDate")] Article article)
         {
             if (id != article.Id)
@@ -117,6 +115,7 @@ namespace HygeeaMind.Controllers
         }
 
         // GET: Articles/Delete/5
+        [Authorize(Roles = "Admin")] // Doar utilizatorii cu rolul "Admin" pot accesa această acțiune
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -137,6 +136,7 @@ namespace HygeeaMind.Controllers
         // POST: Articles/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")] // Doar utilizatorii cu rolul "Admin" pot trimite acest formular
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var article = await _context.Articles.FindAsync(id);

@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using HygeeaMind.Data;
 using HygeeaMind.Models;
+using Microsoft.AspNetCore.Authorization; // Adaugă acest using pentru atributul [Authorize]
 
 namespace HygeeaMind.Controllers
 {
@@ -20,12 +21,14 @@ namespace HygeeaMind.Controllers
         }
 
         // GET: Specialists
+        // Această acțiune rămâne publică (oricine poate vedea lista de specialiști)
         public async Task<IActionResult> Index()
         {
             return View(await _context.Specialists.ToListAsync());
         }
 
         // GET: Specialists/Details/5
+        // Această acțiune rămâne publică (oricine poate vedea detaliile unui specialist)
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -44,16 +47,16 @@ namespace HygeeaMind.Controllers
         }
 
         // GET: Specialists/Create
+        [Authorize(Roles = "Admin")] // Doar utilizatorii cu rolul "Admin" pot accesa această acțiune
         public IActionResult Create()
         {
             return View();
         }
 
         // POST: Specialists/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")] // Doar utilizatorii cu rolul "Admin" pot trimite acest formular
         public async Task<IActionResult> Create([Bind("Id,Name,Specialty,Description,ProfileImageUrl,Email,PhoneNumber,ExperienceYears")] Specialist specialist)
         {
             if (ModelState.IsValid)
@@ -66,6 +69,7 @@ namespace HygeeaMind.Controllers
         }
 
         // GET: Specialists/Edit/5
+        [Authorize(Roles = "Admin")] // Doar utilizatorii cu rolul "Admin" pot accesa această acțiune
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -82,10 +86,9 @@ namespace HygeeaMind.Controllers
         }
 
         // POST: Specialists/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")] // Doar utilizatorii cu rolul "Admin" pot trimite acest formular
         public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Specialty,Description,ProfileImageUrl,Email,PhoneNumber,ExperienceYears")] Specialist specialist)
         {
             if (id != specialist.Id)
@@ -117,6 +120,7 @@ namespace HygeeaMind.Controllers
         }
 
         // GET: Specialists/Delete/5
+        [Authorize(Roles = "Admin")] // Doar utilizatorii cu rolul "Admin" pot accesa această acțiune
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -137,6 +141,7 @@ namespace HygeeaMind.Controllers
         // POST: Specialists/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")] // Doar utilizatorii cu rolul "Admin" pot trimite acest formular
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var specialist = await _context.Specialists.FindAsync(id);
